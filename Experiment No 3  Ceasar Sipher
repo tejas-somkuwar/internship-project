@@ -1,0 +1,45 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+char s[100], ch;
+int i, key;
+
+cout << "Enter encryption Message: ";
+cin.getline(s, 100); // safer input function to avoid buffer overflow
+
+cout << "Enter Key: ";
+cin >> key;
+
+// Encryption process
+for(i = 0; s[i] != '\0'; ++i) {
+ch = s[i];
+if(ch >= 'a' && ch <= 'z') {
+ch = (ch + key - 97) % 26 + 97; // encrypt lowercase letters
+s[i] = ch;
+}
+else if(ch >= 'A' && ch <= 'Z') {
+ch = (ch + key - 65) % 26 + 65; // encrypt uppercase letters
+s[i] = ch;
+}
+}
+cout << "Encrypted Message: " << s << endl;
+
+// Decryption process
+for(i = 0; s[i] != '\0'; ++i) {
+
+ch = s[i];
+if(ch >= 'a' && ch <= 'z') {
+ch = (ch - key - 97 + 26) % 26 + 97; // decrypt lowercase letters, ensure non-negative result
+s[i] = ch;
+}
+else if(ch >= 'A' && ch <= 'Z') {
+ch = (ch - key - 65 + 26) % 26 + 65; // decrypt uppercase letters, ensure non-negative result
+s[i] = ch;
+}
+}
+
+cout << "Decrypted Message: " << s << endl;
+
+return 0;
+}
